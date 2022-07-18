@@ -1,6 +1,12 @@
 using Autofac;
+using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using OnionCRM.Application.Interfaces.IAppUserServices;
+using OnionCRM.Application.Services.AppUserServices;
 using OnionCRM.Infrastructure.Extensions;
 using OnionCRM.Persistance.Context;
 using Serilog;
@@ -14,6 +20,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
     .ConfigureContainer<ContainerBuilder>(builder =>
     {
         builder.RegisterModule(new OnionCRM.Infrastructure.Registrations.AutofacRegistration());
+  
     });
 
 //Add Serilog
@@ -22,16 +29,14 @@ builder.Host.UseSerilog(((ctx, lc) => lc
     .ReadFrom.Configuration(ctx.Configuration)
     .WriteTo.Console()));
 
-
-// Add Authorization
-//builder.Services.AddControllersWithViews(config =>
-//{
-//    var policy = new AuthorizationPolicyBuilder()
-//        .RequireAuthenticatedUser()
-//        .Build();
-//    config.Filters.Add(new AuthorizeFilter(policy));
-//});
-builder.Services.AddControllersWithViews();
+//Add Authorization
+builder.Services.AddControllersWithViews(c =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    c.Filters.Add(new AuthorizeFilter(policy));
+});
 
 //Add DbContext
 builder.Services.AddDbContext<OnionProjectContext>(opt =>
@@ -50,7 +55,9 @@ builder.Services.AddDbContext<LogDbContext>(opt =>
 
 //Add Default Identity
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<IdentityDbContext>();
+
 
 
 var app = builder.Build();
@@ -60,7 +67,6 @@ if (!app.Environment.IsDevelopment())
 {
     //ExceptionHandle extension method
     app.UseExceptionHandlerMiddleware();
-
     app.UseHsts();
 }
 
@@ -76,6 +82,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Authorization}/{action=Authorize}/{id?}");
 
 app.Run();

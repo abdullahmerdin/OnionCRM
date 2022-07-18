@@ -10,14 +10,14 @@ namespace OnionCRM.WebAPI.Controllers
     public class PhoneNumbersController : ControllerBase
     {
 
-        private readonly IPhoneNumberService _phoneNumberService;
+        private readonly IAppUserService _phoneNumberService;
 
-        public PhoneNumbersController(IPhoneNumberService phoneNumberService)
+        public PhoneNumbersController(IAppUserService phoneNumberService)
         {
             _phoneNumberService = phoneNumberService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllNumbers(IPhoneNumberService _phoneNumberService)
+        public async Task<IActionResult> GetAllNumbers(IAppUserService _phoneNumberService)
         {
             var numbers = await _phoneNumberService.GetAllPhoneNumbers();
             return Ok(numbers);

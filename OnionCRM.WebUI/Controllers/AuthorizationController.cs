@@ -19,7 +19,9 @@ namespace OnionCRM.WebUI.Controllers
             }
             else
             {
-                Serilog.Log.Logger.Error("Not authenticated user tried to enter {Addr}", HttpContext.Connection.RemoteIpAddress.ToString());
+                Serilog.Log.Logger.Error("Not authenticated user tried to enter{Addr}",HttpContext.Connection.RemoteIpAddress.ToString());
+
+
                 return RedirectToAction("Login", "Account");
             }
         }

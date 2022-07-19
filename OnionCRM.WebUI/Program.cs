@@ -77,11 +77,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication(); ;
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Authorization}/{action=Authorize}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

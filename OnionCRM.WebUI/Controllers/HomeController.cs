@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnionCRM.WebUI.Models;
 
@@ -12,7 +13,7 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-    
+    [AllowAnonymous]
     public IActionResult Index()
     {
         return View();

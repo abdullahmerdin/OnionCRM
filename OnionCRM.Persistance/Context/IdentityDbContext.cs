@@ -19,5 +19,6 @@ public class IdentityDbContext : DbContext
     }
 
     public DbSet<AppUser> AppUsers { get; set; }
+    public DbSet<Role> Roles { get; set; }
 
 }

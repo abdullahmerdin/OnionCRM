@@ -12,7 +12,7 @@ using OnionCRM.Persistance.Context;
 namespace OnionCRM.Persistance.Migrations.IdentityDb
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20220717205454_Identity")]
+    [Migration("20220718152036_Identity")]
     partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,6 +69,10 @@ namespace OnionCRM.Persistance.Migrations.IdentityDb
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Roleid")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -84,7 +88,39 @@ namespace OnionCRM.Persistance.Migrations.IdentityDb
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Roleid");
+
                     b.ToTable("AppUsers");
+                });
+
+            modelBuilder.Entity("OnionCRM.Core.Domain.Role", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("OnionCRM.Core.Domain.AppUser", b =>
+                {
+                    b.HasOne("OnionCRM.Core.Domain.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("Roleid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

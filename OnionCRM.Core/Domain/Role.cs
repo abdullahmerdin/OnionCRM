@@ -1,6 +1,8 @@
-﻿namespace OnionCRM.Core.Domain;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class Role
+namespace OnionCRM.Core.Domain;
+
+public class Role : IdentityRole
 {
     
 }

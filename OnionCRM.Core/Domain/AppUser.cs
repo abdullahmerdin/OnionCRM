@@ -10,7 +10,7 @@ public class AppUser : IdentityUser
     public string Address { get; set; }
     public string Roleid { get; set; }
 
-    //Add role foreign key
+    //Add Relations
     [ForeignKey("Roleid")]
     public virtual Role Role { get; set; }
     

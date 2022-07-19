@@ -13,8 +13,9 @@ namespace OnionCRM.WebUI.Controllers
             
             if (User.Identity.IsAuthenticated)
             {
+                
                 Serilog.Log.Logger.Information("{UserName} logged in", User.Identity.Name);
-                return RedirectToAction("Index", ControllerContext.RouteData.Values["controller"].ToString());
+                return RedirectToAction("Index", "Home");
                
             }
             else

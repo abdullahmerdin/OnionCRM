@@ -15,9 +15,9 @@ namespace OnionCRM.WebUI.Controllers
     [AllowAnonymous]
     public class PhoneNumbersController : Controller
     {
-        private readonly OnionProjectContext _context;
+        private readonly IdentityDbContext _context;
 
-        public PhoneNumbersController(OnionProjectContext context)
+        public PhoneNumbersController(IdentityDbContext context)
         {
             _context = context;
         }
@@ -25,9 +25,8 @@ namespace OnionCRM.WebUI.Controllers
         // GET: PhoneNumbers
         public async Task<IActionResult> Index()
         {
-              return _context.PhoneNumbers != null ? 
-                          View(await _context.PhoneNumbers.ToListAsync()) :
-                          Problem("Entity set 'OnionProjectContext.PhoneNumbers'  is null.");
+            return View(await _context.PhoneNumbers.ToListAsync());
+
         }
 
         // GET: PhoneNumbers/Details/5
@@ -63,7 +62,7 @@ namespace OnionCRM.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(phoneNumber);
+                _context.PhoneNumbers.Add(phoneNumber);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -102,7 +101,7 @@ namespace OnionCRM.WebUI.Controllers
             {
                 try
                 {
-                    _context.Update(phoneNumber);
+                    _context.PhoneNumbers.Update(phoneNumber);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

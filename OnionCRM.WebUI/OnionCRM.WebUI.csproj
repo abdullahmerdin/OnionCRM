@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\**" />
+    <Content Remove="Areas\Admin\**" />
+    <EmbeddedResource Remove="Areas\Admin\**" />
+    <None Remove="Areas\Admin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\Login.cshtml" />
   </ItemGroup>
 
@@ -30,13 +37,6 @@
   <ItemGroup>
     <ProjectReference Include="..\OnionCRM.Infrastructure\OnionCRM.Infrastructure.csproj" />
     <ProjectReference Include="..\OnionCRM.Persistance\OnionCRM.Persistance.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\" />
   </ItemGroup>
 
   <ItemGroup>

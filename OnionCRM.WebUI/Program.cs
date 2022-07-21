@@ -14,6 +14,7 @@ using OnionCRM.Persistance.Context;
 using Serilog;
 using Microsoft.Extensions.DependencyInjection;
 using OnionCRM.Core.Domain;
+using OnionCRM.Infrastructure.MiddleLayers;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,11 +28,11 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
   
     });
 
-//To Find Razor Pages in Areas
-builder.Services.Configure<RazorViewEngineOptions>(options =>
-{
-    options.ViewLocationExpanders.Add(new ViewLocationExpander());
-});
+////To Find Razor Pages in Areas
+//builder.Services.Configure<RazorViewEngineOptions>(options =>
+//{
+//    options.ViewLocationExpanders.Add(new ViewLocationExpander());
+//});
 
 //Add Serilog
 Log.Logger = new LoggerConfiguration().CreateLogger();
@@ -66,7 +67,7 @@ builder.Services.AddDbContext<LogDbContext>(opt =>
 });
 
 //Add Default Identity
-builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>();
 
 
@@ -92,6 +93,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Authorize}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

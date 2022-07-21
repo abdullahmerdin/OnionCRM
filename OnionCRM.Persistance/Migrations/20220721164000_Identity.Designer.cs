@@ -12,8 +12,8 @@ using OnionCRM.Persistance.Context;
 namespace OnionCRM.Persistance.Migrations
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20220721003201_UserPhoneNumbersRole")]
-    partial class UserPhoneNumbersRole
+    [Migration("20220721164000_Identity")]
+    partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

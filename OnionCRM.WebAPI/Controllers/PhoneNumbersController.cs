@@ -4,7 +4,7 @@ using OnionCRM.Core.Domain;
 
 namespace OnionCRM.WebAPI.Controllers
 {
-    
+
     [ApiController]
     [Route("api/[controller]")]
     public class PhoneNumbersController : ControllerBase

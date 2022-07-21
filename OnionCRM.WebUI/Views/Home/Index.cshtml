@@ -1,8 +1,7 @@
 ﻿
 <div class="container-fluid g-3">
     <div class="row row-cols-3">
-    @for (int i = 0; i < 4; i++)
-    {
+   
         <div class="card card-outline card-primary">
             <div class="card-header">
                 <h3 class="card-title">Default Card Example</h3>
@@ -15,7 +14,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                The body of the card
+                <a class="btn btn-danger" asp-controller="PhoneNumbers" asp-action="Index">Telefonlar</a>
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
@@ -23,7 +22,7 @@
             </div>
             <!-- /.card-footer -->
         </div>
-    }
+    
     <!-- /.card -->
     </div>
 </div>

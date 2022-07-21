@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\Account\Login.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.4.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Autofac.Mvc5" Version="6.0.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.7" />
@@ -27,7 +30,17 @@
   <ItemGroup>
     <ProjectReference Include="..\OnionCRM.Infrastructure\OnionCRM.Infrastructure.csproj" />
     <ProjectReference Include="..\OnionCRM.Persistance\OnionCRM.Persistance.csproj" />
-    <ProjectReference Include="..\OnionCRM.WebAPI\OnionCRM.WebAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="Areas\Identity\Pages\Account\Login.cshtml" />
   </ItemGroup>
 
 </Project>

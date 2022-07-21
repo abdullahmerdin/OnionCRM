@@ -6,24 +6,25 @@
     }
 </head>
 <body class="hold-transition layout-top-nav dark-mode">
-    <div class="wrapper">
-        <header>
-            @{
-                await Html.RenderPartialAsync("_header");
-            }
-        </header>
+<div class="wrapper">
+    <header>
+        @{
+            await Html.RenderPartialAsync("_header");
+        }
+    </header>
 
 
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
 
 
-        <footer class="fixed-bottom">
-            @{
-                await Html.RenderPartialAsync("_footer");
-            }
-        </footer>
-    </div>
+    <footer class="fixed-bottom">
+        @{
+            await Html.RenderPartialAsync("_footer");
+        }
+    </footer>
+</div>
 </body>
+@await RenderSectionAsync("Scripts", required: false)
 </html>

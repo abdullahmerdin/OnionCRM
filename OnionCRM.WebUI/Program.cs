@@ -1,19 +1,23 @@
-using Autofac;
+﻿using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.EntityFrameworkCore;
 using OnionCRM.Application.Interfaces.IAppUserServices;
 using OnionCRM.Application.Services.AppUserServices;
 using OnionCRM.Infrastructure.Extensions;
 using OnionCRM.Persistance.Context;
 using Serilog;
+using Microsoft.Extensions.DependencyInjection;
 using OnionCRM.Core.Domain;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 //Add Autofac
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -22,6 +26,12 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
         builder.RegisterModule(new OnionCRM.Infrastructure.Registrations.AutofacRegistration());
   
     });
+
+//To Find Razor Pages in Areas
+builder.Services.Configure<RazorViewEngineOptions>(options =>
+{
+    options.ViewLocationExpanders.Add(new ViewLocationExpander());
+});
 
 //Add Serilog
 Log.Logger = new LoggerConfiguration().CreateLogger();
@@ -36,6 +46,8 @@ builder.Services.AddControllersWithViews(c =>
         .RequireAuthenticatedUser()
         .Build();
     c.Filters.Add(new AuthorizeFilter(policy));
+
+    
 });
 
 //Add DbContext
@@ -55,8 +67,7 @@ builder.Services.AddDbContext<LogDbContext>(opt =>
 
 //Add Default Identity
 builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<IdentityDbContext>();
+    .AddRoles<IdentityRole>();
 
 
 
@@ -81,6 +92,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Authorize}/{id?}");
 
 app.Run();

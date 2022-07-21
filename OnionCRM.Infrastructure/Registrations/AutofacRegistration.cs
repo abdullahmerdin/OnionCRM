@@ -9,7 +9,6 @@ using OnionCRM.Application.Services.PhoneNumberServices;
 using OnionCRM.Application.Services.RoleServices;
 using OnionCRM.Core.Domain;
 
-
 namespace OnionCRM.Infrastructure.Registrations;
 
 public class AutofacRegistration : Module

@@ -48,7 +48,7 @@ public class PhoneNumberService : IPhoneNumberService
             throw new ArgumentNullException(nameof(phoneNumber));
         }
         dbNumber.Number = phoneNumber.Number;
-        dbNumber.UserName = phoneNumber.UserName;
+        dbNumber.User = phoneNumber.User;
 
         await _context.SaveChangesAsync();
         return phoneNumber;

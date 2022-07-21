@@ -1,12 +1,22 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using OnionCRM.Infrastructure.Registrations;
 using OnionCRM.Persistance.Context;
-using Swashbuckle.Swagger;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+//Add Autofac
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new OnionCRM.Infrastructure.Registrations.AutofacRegistration());
+
+    });
+
 
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices();
@@ -17,7 +27,7 @@ builder.Services.AddSwaggerGen();
 //Add Database and Context
 builder.Services.AddDbContext<OnionProjectContext>(opt =>
 {
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("API"));
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("Local"));
 });
 
 
